@@ -31,28 +31,6 @@ voxtag sample.wav --analyze
 voxtag sample.wav --analyze --speech-threshold-db -40 --frame-ms 20
 ```
 
-## Sample Audio Files
-
-Generate deterministic WAV files for analysis and tests:
-
-```bash
-python3 scripts/make_audio_samples.py
-```
-
-This creates:
-
-- `examples/audio/clean_speech_like.wav`: speech-shaped tones with intentional pauses
-- `examples/audio/noisy_room.wav`: the same sample with broadband background noise
-- `examples/audio/hum_50hz.wav`: the same sample with electrical hum
-- `examples/audio/clipped_loud.wav`: an overloaded version for clipping detection
-- `examples/audio/mostly_silence.wav`: a short phrase surrounded by long silence
-
-Try them with:
-
-```bash
-PYTHONPATH=src python3 -m voxtag.cli examples/audio/noisy_room.wav --analyze
-```
-
 ## Current Options
 
 - TinyTag-like `VoxTag.get(path)` API

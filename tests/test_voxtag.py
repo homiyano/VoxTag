@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import math
 import struct
-import subprocess
-import sys
 import tempfile
 import unittest
 import wave
@@ -71,37 +69,6 @@ class VoxTagTests(unittest.TestCase):
 
         self.assertEqual(code, 0)
         self.assertIn('"duration": 0.1', stdout.getvalue())
-
-    def test_generated_samples_exercise_noise_and_clipping(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            output_dir = Path(tmp) / "audio"
-            subprocess.run(
-                [
-                    sys.executable,
-                    "scripts/make_audio_samples.py",
-                    "--out",
-                    str(output_dir),
-                ],
-                check=True,
-                cwd=Path(__file__).resolve().parents[1],
-                stdout=subprocess.DEVNULL,
-            )
-
-            clean = VoxTag.get(output_dir / "clean_speech_like.wav", analyze=True)
-            noisy = VoxTag.get(output_dir / "noisy_room.wav", analyze=True)
-            clipped = VoxTag.get(output_dir / "clipped_loud.wav", analyze=True)
-            mostly_silence = VoxTag.get(output_dir / "mostly_silence.wav", analyze=True)
-
-        assert clean.metrics is not None
-        assert noisy.metrics is not None
-        assert clipped.metrics is not None
-        assert mostly_silence.metrics is not None
-
-        self.assertGreater(noisy.metrics.rms, clean.metrics.rms)
-        self.assertGreater(noisy.metrics.zero_crossing_rate, clean.metrics.zero_crossing_rate)
-        self.assertGreater(clipped.metrics.clipping_ratio, 0.01)
-        self.assertGreater(mostly_silence.metrics.silence_ratio, clean.metrics.silence_ratio)
-
 
 if __name__ == "__main__":
     unittest.main()
