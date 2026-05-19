@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voxtag"
+version = "0.1.0"
+description = "Tiny voice metadata and speech-readiness analysis for WAV files."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "VoxTag Contributors" }
+]
+keywords = ["audio", "wav", "speech", "metadata", "vad", "pcm"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
+]
+
+[project.scripts]
+voxtag = "voxtag.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/homiyano/VoxTag"
+Repository = "https://github.com/homiyano/VoxTag"
+Issues = "https://github.com/homiyano/VoxTag/issues"
+Releases = "https://github.com/homiyano/VoxTag/releases"
+
+[tool.setuptools.packages.find]
+where = ["src"]
